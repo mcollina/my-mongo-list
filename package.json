@@ -1,0 +1,31 @@
+{
+  "name": "my-mongo-list",
+  "version": "0.0.0",
+  "description": "a todo list backed by mongodb",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/"
+  },
+  "pre-commit": [
+    "test"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mcollina/my-mongo-list.git"
+  },
+  "author": "",
+  "license": "mit",
+  "bugs": {
+    "url": "https://github.com/mcollina/my-mongo-list/issues"
+  },
+  "homepage": "https://github.com/mcollina/my-mongo-list",
+  "devdependencies": {
+    "pre-commit": "0.0.7",
+    "chai": "~1.9.1",
+    "sinon": "~1.9.1",
+    "mocha": "~1.18.2"
+  },
+  "dependencies": {
+    "mongodb": "~1.4.2"
+  }
+}
