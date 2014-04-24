@@ -27,5 +27,8 @@
   },
   "dependencies": {
     "mongodb": "~1.4.2"
+  },
+  "devDependencies": {
+    "mongo-clean": "0.0.1"
   }
 }
