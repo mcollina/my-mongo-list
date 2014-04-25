@@ -41,4 +41,20 @@ describe("saves a list", function(done) {
       });
     });
   });
+
+  it("should save an item", function(done) {
+    var expected = {
+      name: "hello",
+      items: [{
+        name: "first stuff to do"
+      }]
+    };
+
+    instance.save(expected, function(err, list) {
+      expect(err).to.be.null;
+      expected._id = list._id;
+      expect(list).to.eql(expected);
+      done()
+    });
+  });
 });

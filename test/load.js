@@ -28,7 +28,7 @@ describe("load a list", function(done) {
   });
 
   it("should err if there is no such list", function(done) {
-    instance.load("abcde", function(err, list) {
+    instance.load("abcdefabcdef", function(err, list) {
       expect(err.message).to.equal("No such list");
       done()
     });

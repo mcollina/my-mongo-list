@@ -1,9 +1,12 @@
 
-var Joi = require('joi');
-
-var schema = Joi.object().keys({
+var Joi      = require('joi');
+var ObjectID = require('mongodb').ObjectID;
+var schema   = Joi.object().keys({
   _id: Joi.optional(),
-  name: Joi.string().min(4).max(30).required()
+  name: Joi.string().min(4).max(30).required(),
+  items: Joi.array().includes(Joi.object().keys({
+    name: Joi.string().required()
+  }))
 });
 
 function MongoList(conn) {
@@ -28,7 +31,7 @@ MongoList.prototype.save = function(list, done) {
 
     if (!obj._id) {
       collection.insert(obj, function(err, doc) {
-        done(err, doc[0]);
+        done(err, idToString(doc[0]));
       });
     } else {
       collection.update({ _id: obj._id }, obj, function(err, doc) {
@@ -40,7 +43,7 @@ MongoList.prototype.save = function(list, done) {
 
 MongoList.prototype.load = function(id, done) {
   var collection = this.db.collection("lists");
-  collection.findOne({ "_id": id }, function(err, list) {
+  collection.findOne({ _id: new ObjectID(id) }, function(err, list) {
     if (err) {
       return done(err);
     }
@@ -49,8 +52,16 @@ MongoList.prototype.load = function(id, done) {
       return done(new Error("No such list"));
     }
 
-    done(null, list);
+    done(null, idToString(list));
   });
 };
+
+function idToString(doc) {
+  if (doc) {
+    doc._id = doc._id.toString();
+  }
+
+  return doc;
+}
 
 module.exports = MongoList;
