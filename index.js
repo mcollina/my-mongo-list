@@ -1,4 +1,11 @@
 
+var Joi = require('joi');
+
+var schema = Joi.object().keys({
+  _id: Joi.optional(),
+  name: Joi.string().min(4).max(30).required()
+});
+
 function MongoList(conn) {
   if (!(this instanceof MongoList)) {
     return new MongoList(conn);
@@ -11,19 +18,27 @@ function MongoList(conn) {
   this.db = conn;
 }
 
-MongoList.prototype.createList = function(list, done) {
+MongoList.prototype.save = function(list, done) {
   var collection = this.db.collection("lists");
 
-  if (!list.name) {
-    return done(new Error("Missing name"));
-  }
+  Joi.validate(list, schema, function(err, obj) {
+    if (err) {
+      return done(err);
+    }
 
-  collection.insert(list, function(err, doc) {
-    done(err, doc[0]);
-  });
+    if (!obj._id) {
+      collection.insert(obj, function(err, doc) {
+        done(err, doc[0]);
+      });
+    } else {
+      collection.update({ _id: obj._id }, obj, function(err, doc) {
+        done(err, obj);
+      });
+    }
+  })
 };
 
-MongoList.prototype.loadList = function(id, done) {
+MongoList.prototype.load = function(id, done) {
   var collection = this.db.collection("lists");
   collection.findOne({ "_id": id }, function(err, list) {
     if (err) {

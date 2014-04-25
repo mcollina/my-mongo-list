@@ -12,7 +12,7 @@ describe("load a list", function(done) {
       if (err) throw err;
 
       instance = mylist(conn);
-      instance.createList({ name: "hello" }, function(err, doc) {
+      instance.save({ name: "hello" }, function(err, doc) {
         list = doc;
         done();
       });
@@ -20,7 +20,7 @@ describe("load a list", function(done) {
   });
 
   it("should load a list", function(done) {
-    instance.loadList(list._id, function(err, loaded) {
+    instance.load(list._id, function(err, loaded) {
       expect(err).to.be.null;
       expect(loaded).to.eql(list);
       done()
@@ -28,7 +28,7 @@ describe("load a list", function(done) {
   });
 
   it("should err if there is no such list", function(done) {
-    instance.loadList("abcde", function(err, list) {
+    instance.load("abcde", function(err, list) {
       expect(err.message).to.equal("No such list");
       done()
     });

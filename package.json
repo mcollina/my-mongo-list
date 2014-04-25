@@ -26,7 +26,8 @@
     "mocha": "~1.18.2"
   },
   "dependencies": {
-    "mongodb": "~1.4.2"
+    "mongodb": "~1.4.2",
+    "joi": "~4.0.0"
   },
   "devDependencies": {
     "mongo-clean": "0.0.1"
