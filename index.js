@@ -5,7 +5,8 @@ var schema   = Joi.object().keys({
   _id: Joi.optional(),
   name: Joi.string().min(4).max(30).required(),
   items: Joi.array().includes(Joi.object().keys({
-    name: Joi.string().required()
+    name: Joi.string().required(),
+    completed: Joi.boolean().default(false)
   }))
 });
 

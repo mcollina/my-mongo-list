@@ -53,6 +53,7 @@ describe("saves a list", function(done) {
     instance.save(expected, function(err, list) {
       expect(err).to.be.null;
       expected._id = list._id;
+      expected.items[0].completed = false;
       expect(list).to.eql(expected);
       done()
     });
