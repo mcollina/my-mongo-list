@@ -57,6 +57,21 @@ MongoList.prototype.load = function(id, done) {
   });
 };
 
+MongoList.prototype.remove = function(id, done) {
+  var collection = this.db.collection("lists");
+  collection.remove({ _id: new ObjectID(id) }, function(err, list) {
+    if (err) {
+      return done(err);
+    }
+
+    if (!list) {
+      return done(new Error("No such list"));
+    }
+
+    done(null);
+  });
+};
+
 function idToString(doc) {
   if (doc) {
     doc._id = doc._id.toString();
