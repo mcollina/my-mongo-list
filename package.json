@@ -4,7 +4,7 @@
   "description": "a todo list backed by mongodb",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/"
+    "test": "mocha test"
   },
   "pre-commit": [
     "test"
@@ -13,8 +13,8 @@
     "type": "git",
     "url": "git://github.com/mcollina/my-mongo-list.git"
   },
-  "author": "",
-  "license": "mit",
+  "author": "Matteo Collina <hello@matteocollina.com>",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/mcollina/my-mongo-list/issues"
   },
